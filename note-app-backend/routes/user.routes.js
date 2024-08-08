@@ -35,7 +35,7 @@ userRouter.post("/register", async (req, res) => {
 userRouter.post("/login", async (req, res) => {
   const {email, password} = req.body;
   let option = {
-    expiresIn : "30m"
+    expiresIn : "300m"
   }
   try {
     let data = await userModel.find({email})
