@@ -30,8 +30,9 @@ input {
     display: flex;
     justify-content: space-evenly;
     gap: 5px;
+    /* margin-bottom: 10px; */
 }
-
+    
 .edit-buttons button {
     flex: 1;
 }

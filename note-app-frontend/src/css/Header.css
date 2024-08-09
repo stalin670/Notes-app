@@ -1,0 +1,57 @@
+/* src/css/Header.css */
+
+.header {
+    display: inline-block;   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    margin: 10px;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header-profile {
+    position: relative;
+}
+
+.profile-icon {
+    cursor: pointer;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+}
+
+.dropdown-menu button {
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+.dropdown-menu button:hover {
+    background-color: #f2f2f2;
+}
