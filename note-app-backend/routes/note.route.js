@@ -10,7 +10,8 @@ noteRouter.use(authenticator)
 
 noteRouter.get("/", (req, res) => {
 
-    let token = req.headers.authorization
+    let token = req.headers.
+    authorization
     jwt.verify(token, "amit", async (err, decode) => {
         try {
             let data = await noteModel.find({user : decode.userId})
@@ -64,6 +65,7 @@ noteRouter.patch("/", async (req, res) => {
 
 noteRouter.delete("/", async (req, res) => {
     let {id} = req.headers;
+    console.log(req.method);
     try {
         await noteModel.findByIdAndDelete({_id:id});
         res.send({
