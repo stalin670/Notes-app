@@ -5,14 +5,46 @@ import { useNavigate } from 'react-router-dom';
 import '../css/SignupPage.css';
 
 const SignupPage = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [user, setUser] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+
+    const handleInput = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+
+        setUser({
+            ...user,
+            [name]: value,
+        });
+    }
+    // const [name, setName] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const handleSignup = (event) => {
         event.preventDefault();
         // Handle user creation logic here
+
+        console.log(user);
+
+        try {
+            const response = fetch(`http://localhost:4000/user/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(user),
+            });
+
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+
         navigate('/login'); // Redirect to the login page after successful signup
     };
 
@@ -22,22 +54,25 @@ const SignupPage = () => {
             <form onSubmit={handleSignup}>
                 <input
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    name='name'
+                    value={user.name}
+                    onChange={handleInput}
                     placeholder="Name"
                     required
                 />
                 <input
                     type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    name='email'
+                    value={user.email}
+                    onChange={handleInput}
                     placeholder="Email"
                     required
                 />
                 <input
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name='password'
+                    value={user.password}
+                    onChange={handleInput}
                     placeholder="Password"
                     required
                 />

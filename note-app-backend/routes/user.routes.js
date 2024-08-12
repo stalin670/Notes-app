@@ -35,7 +35,7 @@ userRouter.post("/register", async (req, res) => {
 userRouter.post("/login", async (req, res) => {
   const {email, password} = req.body;
   let option = {
-    expiresIn : "300m"
+    expiresIn : "100m"
   }
   try {
     let data = await userModel.find({email})
@@ -48,6 +48,8 @@ userRouter.post("/login", async (req, res) => {
             message : "User logged in successfully",
             token : token,
             status: 1
+          }).json({
+            amit : true,
           });
         }
         else {

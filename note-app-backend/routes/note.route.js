@@ -33,7 +33,9 @@ noteRouter.post("/create",async (req, res) => {
     
     try {
         let note = new noteModel(req.body)
+        // console.log("first")
         await note.save()
+        // console.log("second")
         res.send({
             message : "Note created",
             status : 1

@@ -15,32 +15,75 @@ const HomePage = () => {
 
   const [selectedNote, setSelectedNote] = useState(null);
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(""); 
 
-  const handleAddNote = () => {
-    const newNote = {
-      id: notes.length + 1,
-      title,
-      content,
-    };
-    setNotes([newNote, ...notes]);
-    setTitle("");
-    setContent("");
+  const handleAddNote = async () => {
+    // This is just a data from frontend 
+
+    // const newNote = {
+    //   id: notes.length + 1,
+    //   title,
+    //   content,
+    // };
+
+    // Now we will fetch the data from database using backend api
+
+    try {
+      const response = await fetch(`http://localhost:4000/note/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title,
+          content,
+        }),
+      });
+
+      const newNote = await response.json();
+
+      setNotes([newNote, ...notes]);
+      setTitle("");
+      setContent("");
+
+    } catch (error) {
+      console.log(error)
+    }
+
   };
 
-  const handleUpdateNote = () => {
+  const handleUpdateNote = async() => {
     if (!selectedNote) return;
 
-    const updatedNotes = notes.map(note =>
-      note.id === selectedNote.id
-        ? { ...note, title, content }
-        : note
-    );
+    try {
+      const response = await fetch(`http://localhost:4000/note/${selectedNote.id}`, {
+        method : 'PATCH',
+        headers : {
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify({
+          title,
+          content,
+        })
+      })
 
-    setNotes(updatedNotes);
-    setTitle("");
-    setContent("");
-    setSelectedNote(null);
+      const updatedNote = await response.json();
+
+      const updatedNotes = notes.map(note =>
+        note.id === selectedNote.id
+          ? updatedNote
+          : note
+      );
+  
+      setNotes(updatedNotes);
+      setTitle("");
+      setContent("");
+      setSelectedNote(null);
+
+    } catch (error) {
+      console.log(error);
+    }
+
   };
 
   const handleNoteClick = (note) => {
@@ -55,9 +98,19 @@ const HomePage = () => {
     setSelectedNote(null);
   };
 
-  const handleDeleteNote = (noteId) => {
-    const updatedNotes = notes.filter(note => note.id !== noteId);
-    setNotes(updatedNotes);
+  const handleDeleteNote = async (noteId) => {
+
+    try {
+      const updatedNotes = notes.filter(note => note.id !== noteId);
+      setNotes(updatedNotes);
+      
+      await fetch(`http://localhost:4000/note/${noteId}`, {
+        method : "DELETE",
+      })
+    } catch (error) {
+      
+    }
+
   };
 
   return (
