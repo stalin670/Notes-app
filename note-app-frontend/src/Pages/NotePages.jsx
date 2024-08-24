@@ -4,6 +4,7 @@ import "../style/Note.css";
 
 const NotePages = () => {
   const [note, setNote] = useState({
+    id : "",
     title: "",
     content: "",
   });
@@ -21,7 +22,7 @@ const NotePages = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const AddNote = (e) => {
     e.preventDefault();
     if (!note.title || !note.content) {
       alert("Please fill in the field");
@@ -86,22 +87,23 @@ const NotePages = () => {
             type="text"
             onChange={handleChange}
           />
-          <button onClick={handleSubmit}>Add</button>
+          <button onClick={AddNote}>Add</button>
         </form>
       </div>
-
-      {values.map((item, index) => {
-        return (
-          <NoteCard
-            key={index}
-            id={index}
-            title={item.title}
-            content={item.content}
-            onDelete={deleteNote}
-            onEdit={() => EditNote(index)}
-          />
-        );
-      })}
+      <div className="data-container">
+        {values.map((item, index) => {
+          return (
+            <NoteCard
+              key={index}
+              id={index}
+              title={item.title}
+              content={item.content}
+              onDelete={deleteNote}
+              onEdit={() => EditNote(index)}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
