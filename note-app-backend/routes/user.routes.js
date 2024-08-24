@@ -18,7 +18,6 @@ userRouter.post("/register", async (req, res) => {
     try {
       let user = new User({ name, email, password: hash });
       await user.save();
-      console.log("here")
       res.send({
         message: "User created",
         status: 1,

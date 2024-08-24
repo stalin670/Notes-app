@@ -8,9 +8,38 @@ const LoginPage = () => {
     const [password, setPassword] = useState()
     const navigate = useNavigate()
 
-    const handleLogin = () => {
+    const handleLogin = async (e) => {
+      e.preventDefault();
 
-        navigate('/notes');
+      if(!email || !password) {
+        alert("Please fill in the field");
+        return;
+      }
+
+      try {
+        const URL = "http://localhost:8000/user/login";
+        const response = await fetch(URL, {
+          method : "POST",
+          headers : {
+            'Content-Type' : 'application/json'
+          },
+          body : JSON.stringify({email, password})
+        });
+        const result = await response.json();
+        const {success, message, error} = result;
+
+        if(success) {
+          navigate('/notes');
+        }
+        else {
+          alert(error)
+        }
+
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
+
     }
 
 

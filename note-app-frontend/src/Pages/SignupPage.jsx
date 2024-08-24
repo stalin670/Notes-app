@@ -8,9 +8,29 @@ const SignupPage = () => {
     const [password, setPassword] = useState()
     const navigate = useNavigate()
 
-    const handleSignup = () => {
+    const handleSignup = async (e) => {
+      e.preventDefault();
+      if(!name || !email || !password) {
+        alert("Please fill in the field");
+        return;
+      }
 
-        navigate('/login');
+      try {
+        const URL = "http://localhost:8000/user/register";
+        const response = await fetch(URL, {
+          method : "POST",
+          headers : {
+            'Content-Type' : 'application/json'
+          },
+          body : JSON.stringify({name, email, password})
+        });
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
+
+      navigate('/login');
     }
 
 

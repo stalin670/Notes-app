@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NoteCard from "./NoteCard";
 import "../style/Note.css";
 
@@ -11,6 +11,22 @@ const NotePages = () => {
 
   const [values, setvalues] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
+
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try {
+
+        const response = await fetch("");
+        const values = await response.json();
+        setvalues(values);
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchNotes();
+
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
