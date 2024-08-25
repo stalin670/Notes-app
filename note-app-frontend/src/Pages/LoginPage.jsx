@@ -17,7 +17,8 @@ const LoginPage = () => {
       }
 
       try {
-        const URL = "http://localhost:8000/user/login";
+        console.log("Ye to bss suruat hai");
+        const URL = "http://localhost:4000/user/login";
         const response = await fetch(URL, {
           method : "POST",
           headers : {
@@ -25,14 +26,17 @@ const LoginPage = () => {
           },
           body : JSON.stringify({email, password})
         });
+        console.log("Ye to bss suruat hai 2");
         const result = await response.json();
-        const {success, message, error} = result;
+        const {status, message, error} = result;
 
-        if(success) {
+        console.log(status);
+
+        if(status) {
           navigate('/notes');
         }
         else {
-          alert(error)
+          alert("ye to galat baat hai");
         }
 
         console.log(result);

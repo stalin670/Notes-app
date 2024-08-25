@@ -16,8 +16,9 @@ const NotePages = () => {
     const fetchNotes = async () => {
       try {
 
-        const response = await fetch("");
-        const values = await response.json();
+        const response = await fetch("http://localhost:4000/note/");
+        var val = await response.json();
+        console.log(val)
         setvalues(values);
 
       } catch (error) {
